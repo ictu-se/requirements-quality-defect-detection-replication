@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BAI4 Manual Audit</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="progress">
+        <strong id="progressText">0/0</strong>
+        <span id="agreementText">manual audit progress</span>
+      </div>
+    </header>
+
+    <main class="layout">
+      <aside class="sidebar">
+        <div class="filters">
+          <input id="searchBox" type="search" placeholder="Search task, repo, statement..." />
+          <select id="statusFilter">
+            <option value="all">All rows</option>
+            <option value="todo">Todo</option>
+            <option value="done">Done</option>
+          </select>
+        </div>
+        <div id="itemList" class="item-list"></div>
+      </aside>
+
+      <section class="workspace">
+        <section class="guide compact-guide">
+          <h2>Workflow: read the red statement → choose TRUE/FALSE → tick defect types if needed → choose severity → Save. Silver labels are hidden.</h2>
+          <details>
+            <summary>Defect type quick guide</summary>
+            <ul>
+              <li><b>Vague wording</b> → ambiguous_term</li>
+              <li><b>Missing responsible actor or system</b> → missing_actor</li>
+              <li><b>Missing trigger or activation condition</b> → missing_trigger</li>
+              <li><b>Missing observable expected outcome</b> → missing_expected_outcome</li>
+              <li><b>Missing important constraint or boundary</b> → missing_constraint</li>
+              <li><b>No clear pass/fail test</b> → not_testable</li>
+              <li><b>Scope too broad or bundled behavior</b> → overly_broad_requirement</li>
+              <li><b>Contradictory condition or result</b> → inconsistent_condition</li>
+              <li><b>Requires unsupported outside assumption</b> → unsupported_external_assumption</li>
+            </ul>
+            <p><b>minor:</b> small issue, main intent remains usable. <b>major:</b> likely to affect implementation or testing. <b>critical:</b> unusable or seriously contradictory.</p>
+          </details>
+        </section>
+
+        <section id="auditCard" class="audit-card">
+          <div class="card-header">
+            <div>
+              <h2 id="rowTitle">Select a row to audit</h2>
+              <p id="rowMeta"></p>
+            </div>
+            <div class="nav-buttons">
+              <button id="prevBtn" type="button" title="Previous row">←</button>
+              <button id="nextBtn" type="button" title="Next row">→</button>
+            </div>
+          </div>
+
+          <div class="statement-label">STATEMENT TO READ AND AUDIT</div>
+          <article id="statement" class="statement"></article>
+
+          <form id="auditForm" class="form">
+            <fieldset>
+              <legend>Review has defect</legend>
+              <label><input type="radio" name="hasDefect" value="TRUE" /> TRUE</label>
+              <label><input type="radio" name="hasDefect" value="FALSE" /> FALSE</label>
+            </fieldset>
+
+            <fieldset>
+              <legend>Defect types</legend>
+              <div id="defectTypeChecks" class="checks"></div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Severity</legend>
+              <div id="severityRadios" class="segmented"></div>
+            </fieldset>
+
+            <label class="notes-label" for="reviewNotes">Review notes</label>
+            <textarea id="reviewNotes" rows="4" placeholder="Briefly explain your judgment..."></textarea>
+
+            <div class="actions">
+              <button id="saveBtn" type="submit">Save</button>
+              <button id="markNoDefectBtn" type="button">Mark no defect</button>
+              <span id="saveStatus"></span>
+            </div>
+          </form>
+        </section>
+      </section>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>

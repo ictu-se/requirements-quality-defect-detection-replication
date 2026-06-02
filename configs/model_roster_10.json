@@ -1,0 +1,100 @@
+{
+  "purpose": "10-model comparison for requirement quality defect detection",
+  "selection_date": "2026-05-17",
+  "selection_policy": [
+    "Prefer models already installed in local Ollama so pilot runs are reproducible immediately.",
+    "Cover code-specialized, general-instruct, newer Qwen3-family, Gemma, Llama, and vision-language families.",
+    "Keep several Qwen2.5-Coder sizes to separate model-family effects from parameter-scale effects.",
+    "Use vision-language models as robustness baselines on text-only requirement-like statements, not because images are used."
+  ],
+  "models": [
+    {
+      "name": "qwen2.5-coder:1.5b",
+      "family": "Qwen2.5-Coder",
+      "size_b": 1.5,
+      "type": "code-specialized",
+      "role": "fast small code baseline"
+    },
+    {
+      "name": "qwen2.5-coder:3b",
+      "family": "Qwen2.5-Coder",
+      "size_b": 3,
+      "type": "code-specialized",
+      "role": "current smoke-test baseline"
+    },
+    {
+      "name": "qwen2.5-coder:7b",
+      "family": "Qwen2.5-Coder",
+      "size_b": 7,
+      "type": "code-specialized",
+      "role": "mid-size code baseline"
+    },
+    {
+      "name": "qwen2.5-coder:14b",
+      "family": "Qwen2.5-Coder",
+      "size_b": 14,
+      "type": "code-specialized",
+      "role": "larger code baseline"
+    },
+    {
+      "name": "qwen2.5:3b",
+      "family": "Qwen2.5",
+      "size_b": 3,
+      "type": "general-instruct",
+      "role": "general Qwen baseline"
+    },
+    {
+      "name": "qwen3:4b",
+      "family": "Qwen3",
+      "size_b": 4,
+      "type": "general-instruct",
+      "role": "newer general Qwen-family baseline"
+    },
+    {
+      "name": "llama3.2:3b",
+      "family": "Llama 3.2",
+      "size_b": 3,
+      "type": "general-instruct",
+      "role": "non-Qwen general baseline"
+    },
+    {
+      "name": "gemma3:4b",
+      "family": "Gemma 3",
+      "size_b": 4,
+      "type": "general-instruct",
+      "role": "Google-family baseline"
+    },
+    {
+      "name": "granite3.2-vision:latest",
+      "family": "Granite 3.2 Vision",
+      "size_b": null,
+      "type": "vision-language",
+      "role": "IBM-family multimodal robustness baseline"
+    },
+    {
+      "name": "qwen2.5vl:3b",
+      "family": "Qwen2.5-VL",
+      "size_b": 3,
+      "type": "vision-language",
+      "role": "Qwen multimodal robustness baseline; used because qwen3-vl:4b timed out on the first full-run sample"
+    }
+  ],
+  "optional_installed_alternates": [
+    "qwen3-vl:4b",
+    "qwen3-vl:8b",
+    "llama3.2-vision:11b",
+    "qwen2.5vl:3b",
+    "llava:7b",
+    "llava-llama3:8b",
+    "minicpm-v:latest"
+  ],
+  "future_refresh_candidates_seen_on_ollama_2026_05_17": [
+    "qwen3.6",
+    "qwen3.5",
+    "qwen3-coder-next",
+    "gemma4",
+    "granite4.1",
+    "glm-5.1",
+    "minimax-m2.7"
+  ]
+}

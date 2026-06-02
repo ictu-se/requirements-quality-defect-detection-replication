@@ -1,0 +1,5 @@
+comparison,n,any_acc_delta,any_acc_p,false_alarm_delta,false_alarm_p,missed_major_delta,missed_major_p
+gemma3:4b zero_shot minus gemma3:4b rubric_guided,613,0.008,0.3121,-0.013,0.0202,0.002,1.0000
+gemma3:4b zero_shot minus qwen2.5-coder:14b rubric_guided,613,0.179,0.0001,0.290,0.0001,-0.072,0.0001
+qwen2.5-coder:14b rubric_guided minus qwen2.5-coder:14b zero_shot,613,-0.005,0.5901,0.005,0.3749,0.002,1.0000
+qwen2.5-coder:1.5b zero_shot minus qwen2.5-coder:1.5b rubric_guided,613,-0.003,0.6843,-0.002,1.0000,0.002,1.0000

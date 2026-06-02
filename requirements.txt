@@ -1,0 +1,2 @@
+# Python 3.9 or newer is required.
+# The Python replication scripts use only the standard library.

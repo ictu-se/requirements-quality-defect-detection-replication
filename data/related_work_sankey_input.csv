@@ -1,0 +1,55 @@
+time,group,value
+2003,Quality criteria and ambiguity,2
+2003,Requirements smells,0
+2003,NLP/ML for RE,0
+2003,LLMs for SE,0
+2003,LLMs for RE,0
+2003,Evaluation and oracle validity,0
+2007,Quality criteria and ambiguity,1
+2007,Requirements smells,0
+2007,NLP/ML for RE,2
+2007,LLMs for SE,0
+2007,LLMs for RE,0
+2007,Evaluation and oracle validity,0
+2010,Quality criteria and ambiguity,0
+2010,Requirements smells,0
+2010,NLP/ML for RE,2
+2010,LLMs for SE,0
+2010,LLMs for RE,0
+2010,Evaluation and oracle validity,0
+2017,Quality criteria and ambiguity,0
+2017,Requirements smells,2
+2017,NLP/ML for RE,1
+2017,LLMs for SE,0
+2017,LLMs for RE,0
+2017,Evaluation and oracle validity,0
+2021,Quality criteria and ambiguity,1
+2021,Requirements smells,1
+2021,NLP/ML for RE,3
+2021,LLMs for SE,0
+2021,LLMs for RE,0
+2021,Evaluation and oracle validity,1
+2023,Quality criteria and ambiguity,0
+2023,Requirements smells,0
+2023,NLP/ML for RE,0
+2023,LLMs for SE,3
+2023,LLMs for RE,1
+2023,Evaluation and oracle validity,1
+2024,Quality criteria and ambiguity,0
+2024,Requirements smells,2
+2024,NLP/ML for RE,1
+2024,LLMs for SE,2
+2024,LLMs for RE,2
+2024,Evaluation and oracle validity,2
+2025,Quality criteria and ambiguity,1
+2025,Requirements smells,1
+2025,NLP/ML for RE,1
+2025,LLMs for SE,1
+2025,LLMs for RE,4
+2025,Evaluation and oracle validity,3
+2026,Quality criteria and ambiguity,1
+2026,Requirements smells,1
+2026,NLP/ML for RE,1
+2026,LLMs for SE,1
+2026,LLMs for RE,2
+2026,Evaluation and oracle validity,4
