@@ -6,7 +6,8 @@ from pathlib import Path
 
 
 PROJECT = Path(__file__).resolve().parents[1]
-PROJECT_DATA = PROJECT / "data"
+ROOT = Path(__file__).resolve().parents[2]
+PROJECT_DATA = ROOT / "datasets" / "04_requirements_quality_defect_detection__data"
 DEFECT_TYPES = [
     "ambiguous_term",
     "missing_actor",
@@ -180,7 +181,7 @@ def calibration_bin(confidence):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("outputs_jsonl")
-    parser.add_argument("--tasks", default="data/defect_detection_dataset.jsonl")
+    parser.add_argument("--tasks", default="data/defect_detection_pilot90.jsonl")
     parser.add_argument("--out", default=None)
     args = parser.parse_args()
 

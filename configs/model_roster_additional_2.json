@@ -1,0 +1,25 @@
+{
+  "purpose": "Additional local-model comparison for requirement quality defect detection",
+  "selection_date": "2026-06-02",
+  "selection_policy": [
+    "Add higher-capacity and non-Qwen code-specialized local models already installed in Ollama.",
+    "Prioritize models that strengthen the experimental roster for a Requirements Engineering submission.",
+    "Run the same zero-shot and rubric-guided conditions on the same 613 artifacts."
+  ],
+  "models": [
+    {
+      "name": "qwen2.5-coder:32b",
+      "family": "Qwen2.5-Coder",
+      "size_b": 32,
+      "type": "code-specialized",
+      "role": "largest installed local code-specialized baseline"
+    },
+    {
+      "name": "deepseek-coder:6.7b",
+      "family": "DeepSeek-Coder",
+      "size_b": 6.7,
+      "type": "code-specialized",
+      "role": "non-Qwen code-specialized baseline"
+    }
+  ]
+}

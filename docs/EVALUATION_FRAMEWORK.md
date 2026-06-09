@@ -120,7 +120,7 @@ Recommended human-review dimensions for model outputs:
 
 ## Decision Gate Before Full Run
 
-Do not run the full 613-row x 10-model x 2-condition matrix from smoke tests
+Do not run the full 613-row x 12-model x 2-condition matrix from smoke tests
 alone. Run the 90-row pilot matrix first. Move to full run only if:
 
 - parse rate is close to 1.0 for most model-condition pairs;

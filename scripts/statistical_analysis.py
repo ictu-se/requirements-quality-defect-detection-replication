@@ -17,18 +17,19 @@ DEFECT_TYPES = [
 ]
 
 FOCUS = [
+    ("qwen2.5-coder:32b", "rubric_guided"),
+    ("qwen2.5-coder:32b", "zero_shot"),
     ("gemma3:4b", "zero_shot"),
-    ("gemma3:4b", "rubric_guided"),
-    ("qwen3:4b", "zero_shot"),
     ("qwen2.5-coder:14b", "rubric_guided"),
     ("qwen2.5-coder:1.5b", "zero_shot"),
 ]
 
 PAIRS = [
-    ("gemma3:4b", "zero_shot", "gemma3:4b", "rubric_guided"),
+    ("qwen2.5-coder:32b", "rubric_guided", "qwen2.5-coder:32b", "zero_shot"),
+    ("qwen2.5-coder:32b", "rubric_guided", "gemma3:4b", "zero_shot"),
+    ("qwen2.5-coder:32b", "zero_shot", "gemma3:4b", "zero_shot"),
     ("gemma3:4b", "zero_shot", "qwen2.5-coder:14b", "rubric_guided"),
     ("qwen2.5-coder:14b", "rubric_guided", "qwen2.5-coder:14b", "zero_shot"),
-    ("qwen2.5-coder:1.5b", "zero_shot", "qwen2.5-coder:1.5b", "rubric_guided"),
 ]
 
 

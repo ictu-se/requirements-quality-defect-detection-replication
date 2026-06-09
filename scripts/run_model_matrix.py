@@ -6,7 +6,8 @@ from pathlib import Path
 
 
 PROJECT = Path(__file__).resolve().parents[1]
-PROJECT_DATA = PROJECT / "data"
+ROOT = Path(__file__).resolve().parents[2]
+PROJECT_DATA = ROOT / "datasets" / "04_requirements_quality_defect_detection__data"
 DEFAULT_CONDITIONS = ["zero_shot", "rubric_guided"]
 
 
@@ -61,9 +62,9 @@ def run(cmd):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--roster", default="configs/model_roster_10.json")
-    parser.add_argument("--tasks", default="data/defect_detection_dataset.jsonl")
-    parser.add_argument("--out-dir", default="results/model_matrix_full613")
+    parser.add_argument("--roster", default="configs/model_roster_12.json")
+    parser.add_argument("--tasks", default="data/defect_detection_pilot90.jsonl")
+    parser.add_argument("--out-dir", default="results/model_matrix_pilot90")
     parser.add_argument("--conditions", nargs="*", default=DEFAULT_CONDITIONS)
     parser.add_argument("--timeout", type=int, default=240)
     parser.add_argument("--limit", type=int, default=0)

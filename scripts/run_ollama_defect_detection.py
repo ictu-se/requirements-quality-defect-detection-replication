@@ -10,7 +10,8 @@ from render_prompts import load_template, render
 
 
 PROJECT = Path(__file__).resolve().parents[1]
-PROJECT_DATA = PROJECT / "data"
+ROOT = Path(__file__).resolve().parents[2]
+PROJECT_DATA = ROOT / "datasets" / "04_requirements_quality_defect_detection__data"
 
 
 def resolve_tasks_path(value):
@@ -58,7 +59,7 @@ def call_ollama(model, prompt, timeout):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", required=True)
-    parser.add_argument("--tasks", default="data/defect_detection_dataset.jsonl")
+    parser.add_argument("--tasks", default="data/defect_detection_pilot90.jsonl")
     parser.add_argument("--condition", default="rubric_guided", choices=["zero_shot", "rubric_guided"])
     parser.add_argument("--limit", type=int, default=10)
     parser.add_argument("--timeout", type=int, default=180)

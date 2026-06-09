@@ -187,7 +187,7 @@ def fmt(value):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("metrics_csv", nargs="+")
-    parser.add_argument("--roster", default="configs/model_roster_10.json")
+    parser.add_argument("--roster", default="configs/model_roster_12.json")
     parser.add_argument("--out-prefix", default="results/defect_detection_model_ranking")
     args = parser.parse_args()
 

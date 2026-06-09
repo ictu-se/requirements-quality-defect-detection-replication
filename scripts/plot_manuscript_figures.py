@@ -5,7 +5,7 @@ from pathlib import Path
 
 PROJECT = Path(__file__).resolve().parents[1]
 RESULTS = PROJECT / "results" / "model_matrix_full613"
-OUT_DIR = PROJECT / "figures"
+OUT_DIR = PROJECT / "SUBMISSION_BAI4" / "latex_source" / "figures"
 R_SCRIPT = PROJECT / "scripts" / "plot_manuscript_figures.R"
 
 

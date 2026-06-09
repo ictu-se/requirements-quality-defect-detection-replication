@@ -10,7 +10,7 @@ suppressPackageStartupMessages({
 args <- commandArgs(trailingOnly = TRUE)
 project_dir <- if (length(args) >= 1) args[[1]] else getwd()
 results_dir <- if (length(args) >= 2) args[[2]] else file.path(project_dir, "results", "model_matrix_full613")
-out_dir <- if (length(args) >= 3) args[[3]] else file.path(project_dir, "figures")
+out_dir <- if (length(args) >= 3) args[[3]] else file.path(project_dir, "SUBMISSION_BAI4", "latex_source", "figures")
 dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
 read_csv_base <- function(path) {
@@ -19,6 +19,7 @@ read_csv_base <- function(path) {
 
 short_model <- function(x) {
   x <- gsub("qwen2.5-coder:", "qwen2.5-c:", x)
+  x <- gsub("deepseek-coder:", "deepseek-c:", x)
   x <- gsub("granite3.2-vision:latest", "granite3.2-v", x)
   x <- gsub("llama3.2:", "llama3.2:", x)
   x
@@ -78,11 +79,22 @@ save_pdf <- function(plot, filename, width, height) {
   )
 }
 
-best <- read_csv_base(file.path(results_dir, "defect_detection_model_ranking_best_per_model.csv"))
-ranking <- read_csv_base(file.path(results_dir, "defect_detection_model_ranking.csv"))
-defect_type <- read_csv_base(file.path(results_dir, "defect_detection_model_matrix_summary_by_defect_type.csv"))
-source <- read_csv_base(file.path(results_dir, "defect_detection_model_matrix_summary_by_source.csv"))
-calibration <- read_csv_base(file.path(results_dir, "defect_detection_model_matrix_summary_calibration.csv"))
+ranking_base <- if (file.exists(file.path(results_dir, "defect_detection_model_ranking_12models.csv"))) {
+  "defect_detection_model_ranking_12models"
+} else {
+  "defect_detection_model_ranking"
+}
+summary_base <- if (file.exists(file.path(results_dir, "defect_detection_model_matrix_summary_12models.csv"))) {
+  "defect_detection_model_matrix_summary_12models"
+} else {
+  "defect_detection_model_matrix_summary"
+}
+
+best <- read_csv_base(file.path(results_dir, paste0(ranking_base, "_best_per_model.csv")))
+ranking <- read_csv_base(file.path(results_dir, paste0(ranking_base, ".csv")))
+defect_type <- read_csv_base(file.path(results_dir, paste0(summary_base, "_by_defect_type.csv")))
+source <- read_csv_base(file.path(results_dir, paste0(summary_base, "_by_source.csv")))
+calibration <- read_csv_base(file.path(results_dir, paste0(summary_base, "_calibration.csv")))
 
 best <- best |>
   mutate(
@@ -203,7 +215,7 @@ p_operating <- best |>
 save_pdf(p_operating, "fig_bai4_operating_points.pdf", 7.8, 5.4)
 
 focus_defect <- defect_type |>
-  filter(model == "gemma3:4b", condition == "zero_shot") |>
+  filter(model == "qwen2.5-coder:32b", condition == "rubric_guided") |>
   mutate(
     defect_label = recode(
       defect_type,
@@ -221,7 +233,7 @@ focus_defect <- defect_type |>
   )
 
 cat(sprintf(
-  "- gemma3 zero-shot strongest defect-type F1: %s %.3f (n=%d)\n",
+  "- qwen2.5-coder:32b rubric-guided strongest defect-type F1: %s %.3f (n=%d)\n",
   focus_defect$defect_type[which.max(focus_defect$f1)],
   max(focus_defect$f1),
   as.integer(focus_defect$gold_support[which.max(focus_defect$f1)])
@@ -245,9 +257,9 @@ p_defect <- focus_defect |>
     colour = muted
   ) +
   scale_size_continuous(range = c(2.2, 7.5), guide = "none") +
-  scale_x_continuous(limits = c(0, 0.58), labels = label_number(accuracy = 0.01), expand = expansion(mult = c(0, 0))) +
+  scale_x_continuous(limits = c(0, max(0.65, max(focus_defect$f1) + 0.06)), labels = label_number(accuracy = 0.01), expand = expansion(mult = c(0, 0))) +
   labs(
-    title = "Defect-type F1 for gemma3:4b zero-shot",
+    title = "Defect-type F1 for qwen2.5-coder:32b rubric-guided",
     subtitle = "Point size and right-side labels report gold support.",
     x = "F1",
     y = NULL
@@ -261,7 +273,7 @@ p_defect <- focus_defect |>
 save_pdf(p_defect, "fig_bai4_defect_type_f1.pdf", 7.8, 5.2)
 
 focus_source <- source |>
-  filter(model == "gemma3:4b", condition == "zero_shot") |>
+  filter(model == "qwen2.5-coder:32b", condition == "rubric_guided") |>
   mutate(
     source_label = recode(
       source_type,
@@ -298,7 +310,7 @@ p_source <- focus_source |>
     labels = label_number(accuracy = 0.1)
   ) +
   labs(
-    title = "Source-specific behavior for gemma3:4b zero-shot",
+    title = "Source-specific behavior for qwen2.5-coder:32b rubric-guided",
     x = NULL,
     y = NULL,
     fill = "Rate"
@@ -316,9 +328,9 @@ save_pdf(p_source, "fig_bai4_source_behavior.pdf", 7.6, 4.8)
 
 keep_cal <- calibration |>
   filter(
+    (model == "qwen2.5-coder:32b" & condition == "rubric_guided") |
     (model == "gemma3:4b" & condition == "zero_shot") |
-      (model == "qwen2.5-coder:14b" & condition == "rubric_guided") |
-      (model == "qwen2.5-coder:1.5b" & condition == "zero_shot")
+      (model == "qwen2.5-coder:14b" & condition == "rubric_guided")
   ) |>
   mutate(series = paste(short_model(model), condition_label(condition), sep = " / "))
 
@@ -343,9 +355,9 @@ related_script <- file.path(project_dir, "scripts", "render_related_work_sankey.
 related_input <- file.path(project_dir, "docs", "related_work_sankey_input.csv")
 related_output <- file.path(out_dir, "fig_bai4_related_work_map.pdf")
 if (file.exists(related_script)) {
-  status <- system2("Rscript", shQuote(c(related_script, related_input, related_output)))
+  status <- system2("Rscript", c(related_script, related_input, related_output))
   if (!identical(status, 0L)) {
-    stop("related-work Sankey rendering failed with status ", status)
+    warning("related-work Sankey rendering failed with status ", status)
   }
 }
 
